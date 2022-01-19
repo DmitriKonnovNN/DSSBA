@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:H2://mem:db;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    password: sa
+    username: sa

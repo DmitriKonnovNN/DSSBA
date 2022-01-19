@@ -1,0 +1,94 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+  port: 8080
+
+
+spring:
+  datasource:
+    password: P@ssw0rd
+    url: jdbc:mysql://localhost:3306/deanerysbapp?createDatabaseIfNotExist=true&Unicode=true&serverTimezone=UTC
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+        show-sql: true
+        use_sql_comments: true
+        search:
+          version: 5.11.7.Final
+    generate-ddl: true
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+  freemarker:
+    expose-request-attributes: true
+    template-loader-path: classpath:/templates
+    suffix: .ftlh
+#  main:
+#    lazy-initialization: true
+  resources:
+    static-locations: classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/public
+
+  mail:
+    host: localhost
+    port: 1025
+    username: hello
+    password: hello
+
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
+
+
+
+
+logging:
+  level:
+    root: info
+    io:
+      dmitrikonnov:
+        DeanerySimpleSpringBootApp:
+          aspect: trace
+    org:
+      hibernate:
+        SQL: TRACE
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+management:
+  server:
+    port: 9001
+  endpoints:
+    web:
+      exposure:
+        include: health, info, beans
+  endpoint:
+    health:
+      show-components: always
+
+debug: false
+
+
+
+
+
+
+
+
+
