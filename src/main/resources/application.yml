@@ -4,6 +4,11 @@ server:
     include-binding-errors: always
   port: 8080
 
+info:
+  app:
+    name: Simple Deanery Simple Spring Boot Application
+    description: none
+    version: snapshot 1.0
 
 spring:
   datasource:
@@ -53,10 +58,6 @@ spring:
           timeout: 3000
           writetimeout: 5000
 
-
-
-
-
 logging:
   level:
     root: info
@@ -77,10 +78,19 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info, beans
+        include: "*"
   endpoint:
     health:
       show-components: always
+      show-details: always
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+
 
 debug: false
 
