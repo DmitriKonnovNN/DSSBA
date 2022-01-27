@@ -84,6 +84,12 @@ management:
       show-components: always
       show-details: always
   metrics:
+    enable:
+      http:
+        client:
+          requests: true
+        server:
+          requests: true
     export:
       prometheus:
         enabled: true
