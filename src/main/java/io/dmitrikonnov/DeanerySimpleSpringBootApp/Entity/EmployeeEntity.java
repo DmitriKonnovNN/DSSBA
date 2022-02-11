@@ -1,6 +1,7 @@
 package io.dmitrikonnov.DeanerySimpleSpringBootApp.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.dmitrikonnov.DeanerySimpleSpringBootApp.Dto.Appointment.ExamDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,9 +17,7 @@ import java.util.Set;
         @UniqueConstraint(columnNames = "ID")})
 public class EmployeeEntity extends PersonAbstractEntity implements Serializable {
 
-
-
-    @OneToMany(cascade= CascadeType.ALL)
+       @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="EMPLOYEE_ID")
     @JsonIgnoreProperties ("employee")
     private Set<AccountEntity> accounts;
