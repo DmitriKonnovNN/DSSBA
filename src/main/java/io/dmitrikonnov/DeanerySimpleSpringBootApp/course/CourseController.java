@@ -1,6 +1,6 @@
 package io.dmitrikonnov.DeanerySimpleSpringBootApp.course;
 
-import io.dmitrikonnov.DeanerySimpleSpringBootApp.PrePostProcTestFeatures.Quoter;
+//import io.dmitrikonnov.DeanerySimpleSpringBootApp.PrePostProcTestFeatures.Quoter;
 import io.dmitrikonnov.DeanerySimpleSpringBootApp.annotation.RequestDTO;
 import io.dmitrikonnov.DeanerySimpleSpringBootApp.exception.BadRequestParameterException;
 import io.dmitrikonnov.DeanerySimpleSpringBootApp.exception.FileEmptyException;
@@ -31,7 +31,7 @@ public class CourseController {
     // TODO: add @InitBinder public void initBinder (){} ???
     // TODO: try out get Map: ...stream().map(x->x.dosmth).collect(Collectors.toMap(someClass::getSomething, Function.identity()))
     private final CourseService courseService;
-    private final Quoter quoter;
+    //private final Quoter quoter;
 
 
 
@@ -39,7 +39,7 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CourseDto> getCourseById (@PathVariable Long id) {
-        quoter.say();
+        //quoter.say();
                 return ResponseEntity.status(HttpStatus.OK).body(courseService.getCourseById(id));
     }
 

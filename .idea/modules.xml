@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/DeanerySimpleSpringBootApp.iml" filepath="$PROJECT_DIR$/.idea/DeanerySimpleSpringBootApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PrePostProccessorFeatures/PrePostProccessorFeatures.iml" filepath="$PROJECT_DIR$/PrePostProccessorFeatures/PrePostProccessorFeatures.iml" />
     </modules>
   </component>
 </project>

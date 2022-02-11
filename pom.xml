@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>io.dmitrikonnov</groupId>
 	<artifactId>DeanerySimpleSpringBootApp</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>DeanerySimpleSpringBootApp</name>
 	<description>simple App for Deanery runs on Spring Boot</description>
 	<packaging>jar</packaging>

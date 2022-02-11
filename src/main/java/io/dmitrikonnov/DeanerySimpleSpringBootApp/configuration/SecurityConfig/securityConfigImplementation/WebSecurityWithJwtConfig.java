@@ -35,7 +35,7 @@ import org.springframework.stereotype.Component;
 public class WebSecurityWithJwtConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[]  RESOURCES = new String[]{
-            "/", "/home","/pictureCheckCode","/include/**",
+            "/", "/home","/pictureCheckCode","/include/**", "/actuator/**",
             "/css/**","/icons/**","/images/**","/js/**","/layer/**"};
 
     @Value("${jwt.token.secretKey}") private final String secretKey;

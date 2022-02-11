@@ -1,6 +1,6 @@
 package io.dmitrikonnov.DeanerySimpleSpringBootApp.greeting;
 
-import io.dmitrikonnov.DeanerySimpleSpringBootApp.PrePostProcTestFeatures.Profiling;
+//import io.dmitrikonnov.DeanerySimpleSpringBootApp.PrePostProcTestFeatures.Profiling;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@Profiling
+//@Profiling
 public class GreetingController {
 
     /*private final UserService userService;
