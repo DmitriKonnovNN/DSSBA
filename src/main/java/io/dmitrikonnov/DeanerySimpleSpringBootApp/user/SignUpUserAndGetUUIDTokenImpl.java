@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor(onConstructor_ ={@Autowired})
-public class SignUpUserAndGetTokenImpl implements SignUpUserAndGetToken <String, UserEntity>{
+public class SignUpUserAndGetUUIDTokenImpl implements SignUpUserAndGetToken <String, UserEntity>{
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -26,6 +26,24 @@ public class SignUpUserAndGetTokenImpl implements SignUpUserAndGetToken <String,
     @Value("${userServiceImpl.tokenExpirationTime}") private int TOKEN_EXPIRATION_MINUTES;
     private final static String TOKEN_HAS_NOT_EXPIRED_MSG = "token hasn't expired yet";
     private final static String EMAIL_ALREADY_OCCUPIED_MSG = "email %s already occupied";
+
+    /**
+     * If email {
+     * is occupied (==user is enabled), throw Exception.
+     * If a token for particular email has been generated yet, check whether it's expired.
+     * If not expired, throw Exception.
+     * If expired, generate a new token and update first name, last name and password.
+     * }
+     *
+     * If email ain't occupied, persist it and generate a token for signing up.
+     *
+     * @param userEntity UserEntity to be persisted
+     * @return a UUID-token
+     * @throws IllegalStateException if email is occupied, which means user is enabled, or if the previous token
+     * hasn't expired yet
+     *
+     *
+     * */
 
     @Override
     public String signUpUserAndGetToken(UserEntity userEntity) {
