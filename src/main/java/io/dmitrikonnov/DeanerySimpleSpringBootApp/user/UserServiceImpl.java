@@ -2,20 +2,15 @@ package io.dmitrikonnov.DeanerySimpleSpringBootApp.user;
 
 import io.dmitrikonnov.DeanerySimpleSpringBootApp.user.userDto.UserDtoGetDetails;
 import io.dmitrikonnov.DeanerySimpleSpringBootApp.user.userDto.UserDtoUpdateRole;
-import io.dmitrikonnov.DeanerySimpleSpringBootApp.registration.token.ConfirmationToken;
-import io.dmitrikonnov.DeanerySimpleSpringBootApp.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service ("userServiceImpl")
@@ -24,15 +19,13 @@ import java.util.*;
 public class UserServiceImpl implements UserDetailsService, UserService {
     private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
     private final static String USER_ID_NOT_FOUND_MSG = "user with id %d not found";
-    private final static String TOKEN_HAS_NOT_EXPIRED_MSG = "token hasn't expired yet";
-    private final static String EMAIL_ALREADY_OCCUPIED_MSG = "email %s already occupied";
+
+
     @Value("${userServiceImpl.tokenExpirationTime}") public final int DEFAULT_TOKEN_EXPIRATION_MINUTES;
     @Value("${userServiceImpl.tokenExpirationTime}") private int TOKEN_EXPIRATION_MINUTES;
 
-
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final ConfirmationTokenService confirmationTokenService;
+    private final SignUpUserAndGetToken<String,UserEntity> signUpUserAndGetTokenImpl;
 
     @Override
     public boolean checkIfExist(Long id) {
@@ -104,74 +97,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
      *
  * */
 
-
-
     @Override
     public String signUpUserAndGetToken(UserEntity userEntity) {
-        Set<String> tokens = new HashSet<>();
-
-        userRepository.findUserEntityByEmail(userEntity.getEmail())
-                .ifPresentOrElse((persistedUser)-> {
-                    if(persistedUser.isEnabled()){
-                        throw new IllegalStateException(String.format(EMAIL_ALREADY_OCCUPIED_MSG,userEntity.getEmail()));}
-                    if(!persistedUser.isEnabled()){
-                        tokens.addAll(getNewTokenIfOlderExpired(userEntity,persistedUser));}
-
-                },()-> tokens.addAll(getTokenForNotPersistedUser(userEntity)));
-        return tokens.iterator().next();
-
+        return signUpUserAndGetTokenImpl.signUpUserAndGetToken(userEntity);
     }
-
-    private Set<String> getTokenForNotPersistedUser(UserEntity userEntity){
-        userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
-        userRepository.save(userEntity);
-        return Collections.singleton(generateToken(userEntity));
-    }
-
-    private Set<String> getNewTokenForPersistedUser (UserEntity userEntity, UserEntity persistedUser) {
-        userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
-        userRepository.updateUserEntityByEmail(
-                userEntity.getEmail(),
-                userEntity.getFirstName(),
-                userEntity.getLastName(),
-                userEntity.getPassword());
-        return Collections.singleton(generateToken(persistedUser));
-
-    }
-
-    private Set<String> getNewTokenIfOlderExpired(UserEntity userEntity,UserEntity persistedUser) {
-        if(confirmationTokenService.findTokenByUserId(persistedUser.getId()).isPresent()) {
-            if (isTokenNotExpired(persistedUser)) throw new IllegalStateException(TOKEN_HAS_NOT_EXPIRED_MSG);
-
-        }
-        return getNewTokenForPersistedUser(userEntity,persistedUser);
-
-    }
-
-    private boolean isTokenNotExpired(UserEntity persistedUser) {
-
-            if(confirmationTokenService
-                    .findTokenByUserId(persistedUser.getId())
-                    .get()
-                    .getExpiresAt()
-                    .isAfter(LocalDateTime.now())){
-                return true; }
-            return false;
-    }
-
-
-
-    private String generateToken(UserEntity userEntity){
-        String token = UUID.randomUUID().toString();
-        ConfirmationToken confirmationToken = new ConfirmationToken(
-                token,
-                LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(TOKEN_EXPIRATION_MINUTES),
-                userEntity
-        );
-        confirmationTokenService.saveConfirmationToken(confirmationToken);
-        return token;
-    }
-
 
 }
