@@ -50,11 +50,11 @@ class UserServiceImplTest {
 
     @BeforeEach
     void setUp() {
-                underTest = new UserServiceImpl(TEST_default_token_exp_minutes,
+            /*    underTest = new UserServiceImpl(TEST_default_token_exp_minutes,
                 TEST_token_exp_minutes,
                 userRepositoryMock,
                 new BCryptPasswordEncoder(),
-                new ConfirmationTokenService(confirmationTokenRepositoryMock));
+                new ConfirmationTokenService(confirmationTokenRepositoryMock));*/
 
 
     }

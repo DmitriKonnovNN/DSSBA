@@ -26,7 +26,6 @@ spring:
         use_sql_comments: true
         search:
           version: 5.11.7.Final
-    generate-ddl: true
   data:
     web:
       pageable:
