@@ -20,7 +20,7 @@ services:
       - grafana
     restart: unless-stopped
     volumes:
-    - C:/Users/lildk/Desktop/PRO/Labs/Java/DSSBA/DSSBA/DeanerySimpleSpringBootApp/src/main/resources/prometheus.yml:/etc/prometheus/prometheus.yml
+    - ./src/main/resources/prometheus.yml:/etc/prometheus/prometheus.yml
 
 
 networks:
