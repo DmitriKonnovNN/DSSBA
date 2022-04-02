@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 public class WebSecurityWithLoginConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[]  RESOURCES = new String[]{
-        "/", "/home","/pictureCheckCode","/include/**","/actuator",
+        "/", "/home","/pictureCheckCode","/include/**","/actuator/**",
                 "/css/**","/icons/**","/images/**","/js/**","/layer/**"};
     private final DaoAuthenticationProvider daoAuthenticationProvider;
 
