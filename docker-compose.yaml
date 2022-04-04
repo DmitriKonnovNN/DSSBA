@@ -1,6 +1,6 @@
 services:
   grafana:
-    container_name: grafana
+    container_name: grafana_dssba
     image: grafana/grafana
 
     ports:
@@ -11,7 +11,7 @@ services:
 
 
   prometeus:
-    container_name: prometheus
+    container_name: prometheus_dssba
     image: prom/prometheus
 
     ports:
