@@ -13,8 +13,9 @@ info:
 spring:
   datasource:
     password: P@ssw0rd
-    url: jdbc:mysql://localhost:3306/deanerysbapp?createDatabaseIfNotExist=true&Unicode=true&serverTimezone=UTC
+    url: jdbc:mysql://host.docker.internal:3307/deanerysbapp?createDatabaseIfNotExist=true&Unicode=true&serverTimezone=UTC
     username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
