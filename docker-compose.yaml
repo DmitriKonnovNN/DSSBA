@@ -1,4 +1,16 @@
 services:
+  mysql-database:
+    container_name: dssba-mysql-db
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: P@ssw0rd
+    volumes:
+      - /.src/data:/var/lib/mysql
+    networks:
+      - dssba-network
+
   grafana:
     container_name: grafana_dssba
     image: grafana/grafana
@@ -6,7 +18,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - grafana
+      - dssba-network
     restart: unless-stopped
 
 
@@ -17,12 +29,12 @@ services:
     ports:
       - "9090:9090"
     networks:
-      - grafana
+      - dssba-network
     restart: unless-stopped
     volumes:
     - ./src/main/resources/prometheus.yml:/etc/prometheus/prometheus.yml
 
 
 networks:
-  grafana:
+  dssba-network:
     driver: bridge
