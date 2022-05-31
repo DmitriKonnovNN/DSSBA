@@ -1,5 +1,8 @@
 package io.dmitrikonnov.DeanerySimpleSpringBootApp.einstufungstest;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
@@ -11,6 +14,9 @@ import java.util.Set;
  * this class should be persistent
  * */
 @Entity
+@Getter
+@Setter
+@EqualsAndHashCode
 public class EinstufungsTestAufgabe {
 
     @Id
@@ -23,7 +29,7 @@ public class EinstufungsTestAufgabe {
 
     @ElementCollection
     @CollectionTable (name = "et_loesungen_set")
-    private Set<String> loesungen;
+    private List<String> loesungen;
 
     private String aufgabenStellung;
 

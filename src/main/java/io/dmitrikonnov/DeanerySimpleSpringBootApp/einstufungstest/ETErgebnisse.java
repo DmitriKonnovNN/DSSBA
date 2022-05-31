@@ -1,13 +1,16 @@
 package io.dmitrikonnov.DeanerySimpleSpringBootApp.einstufungstest;
 
+import lombok.*;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
+@Setter
+@Getter
+@NoArgsConstructor
 public class ETErgebnisse {
 
 
@@ -15,9 +18,33 @@ public class ETErgebnisse {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid",
             strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    private  String id;
 
     private Integer aufgabenBogenHash;
+
+    @ElementCollection
+    @CollectionTable (name = "et_r_loesungen_nach_niveau")
+    private List<String> richtigeLoesungenNachNiveau;
+
+    private int A1richtig;
+    private int A2richtig;
+    private int B1richtig;
+    private int B2richtig;
+    private int C1richtig;
+    private int C2richtig;
+
+    private Boolean A1erreicht;
+    private Boolean A2erreicht;
+    private Boolean B1erreicht;
+    private Boolean B2erreicht;
+    private Boolean C1erreicht;
+    private Boolean C2erreicht;
+
+    @ElementCollection
+    @CollectionTable (name = "et_ergebnisse_mapping")
+    @MapKeyColumn (name = "et_aufg_id")
+    @Column (name = "et_aufg_correctness")
+    private Map<Integer, Boolean> idZuRichtigkeitMap;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column (updatable = false)

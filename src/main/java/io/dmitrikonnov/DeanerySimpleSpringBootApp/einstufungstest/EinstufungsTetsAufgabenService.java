@@ -12,6 +12,8 @@ public class EinstufungsTetsAufgabenService {
     private final EinstufungsTestAufgabenAufsetzer aufsetzer;
     private final EinstufungsTestAntwortenPruefer pruefer;
     private final ETErgebnisseRepo etErgebnisseRepo;
+    private final ETErgebnisseEvaluator evaluator;
+
 
     public EinstufungsTestAufgabenBogen getAufgabenListe (){
         List<EinstufungsTestAufgabe> aufgesetzteListe = aufsetzer.listeAufsetzen();
@@ -20,6 +22,7 @@ public class EinstufungsTetsAufgabenService {
 
     public void checkAntwortBogenAndGetTestErgebnisse (EinstufungsTestAntwortBogenDto antwortBogen,EinstufungsTestAufgabenBogen chachedAufgabenBogen){
         var ergebnisse = pruefer.checkBogen(antwortBogen,chachedAufgabenBogen);
+        evaluator.evaluate(ergebnisse);
         etErgebnisseRepo.save(ergebnisse);
     }
 }
