@@ -11,13 +11,15 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class EinstufungsTestAntwortenPruefer {
+public class ETAntwortenPruefer {
 
-    private final ETErgebnisse ergebnisse;
+    private final ETErgebnisseDto ergebnisseDto;
 
-    public ETErgebnisse checkBogen(EinstufungsTestAntwortBogenDto antwortBogen, EinstufungsTestAufgabenBogen cachedAufgabenBogen) {
-        List<EinstufungsTestAufgabe> cachedAufgaben = cachedAufgabenBogen.getAufgabenListe();
-        ergebnisse.setAufgabenBogenHash(cachedAufgabenBogen.getAufgabenBogenHash());
+
+
+    public ETErgebnisseDto checkBogen(ETAntwortBogenDto antwortBogen, ETAufgabenBogen cachedAufgabenBogen) {
+        List<ETAufgabe> cachedAufgaben = cachedAufgabenBogen.getAufgabenListe();
+        ergebnisseDto.setAufgabenBogenHash(cachedAufgabenBogen.getAufgabenBogenHash());
 
         var cachedBogenHash = cachedAufgabenBogen.getAufgabenBogenHash();
         var aufgabenHashZuAntwortMap = antwortBogen.getAufgabenHashZuAntwortMap();
@@ -28,14 +30,16 @@ public class EinstufungsTestAntwortenPruefer {
 
                 if (aufgabe.getAufgabeId().equals(antwId)){
                     Boolean correct = aufgabe.getLoesungen().equals(list);
-                    ergebnisse.getIdZuRichtigkeitMap().put(antwId, correct);
+                    ergebnisseDto.getIdZuRichtigkeitMap().put(antwId, correct);
                     if (correct){
-                        ergebnisse.getRichtigeLoesungenNachNiveau().add(aufgabe.getAufgabenNiveau().toString());
+                        ergebnisseDto.getRichtigeLoesungenNachNiveau().add(aufgabe.getAufgabenNiveau().toString());
                     }
                 }
             });
         });
 
-        return ergebnisse;
+        ergebnisseDto.setZahlRichtigerAntworten(ergebnisseDto.getRichtigeLoesungenNachNiveau().size());
+
+        return ergebnisseDto;
     }
 }

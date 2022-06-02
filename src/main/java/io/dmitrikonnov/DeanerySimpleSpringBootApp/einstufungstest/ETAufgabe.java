@@ -17,7 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class EinstufungsTestAufgabe {
+public class ETAufgabe {
 
     @Id
     @SequenceGenerator(name = "et_aufgabe_seq",
@@ -43,7 +43,7 @@ public class EinstufungsTestAufgabe {
     private Set<String> moeglicheAntworten;
 
     @Enumerated(EnumType.STRING)
-    private EinstufungsTestAufgabenTyp aufgabenTyp;
+    private ETAufgabenTyp aufgabenTyp;
 
     @Enumerated(EnumType.STRING)
     private ETAufgabenNiveau aufgabenNiveau;

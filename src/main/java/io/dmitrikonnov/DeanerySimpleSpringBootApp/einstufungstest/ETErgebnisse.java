@@ -11,6 +11,7 @@ import java.util.*;
 @Setter
 @Getter
 @NoArgsConstructor
+@Builder
 public class ETErgebnisse {
 
 
@@ -40,6 +41,9 @@ public class ETErgebnisse {
     private Boolean C1erreicht;
     private Boolean C2erreicht;
 
+    private ETAufgabenNiveau maxErreichtesNiveau;
+    private Integer zahlRichtigerAntworten;
+
     @ElementCollection
     @CollectionTable (name = "et_ergebnisse_mapping")
     @MapKeyColumn (name = "et_aufg_id")
@@ -55,5 +59,7 @@ public class ETErgebnisse {
     @Column (insertable = false, updatable = false)
     @org.hibernate.annotations.Generated (GenerationTime.ALWAYS)
     private Date lastModified;
+
+
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
  * DTO only to be sent to FrontEnd
  * */
 @Data
-public class EinstufungsTestAufgabeDto {
+public class ETAufgabeDto {
 
     private final Long aufgabenBogenId;
     private final Integer aufgabenBogenHash;

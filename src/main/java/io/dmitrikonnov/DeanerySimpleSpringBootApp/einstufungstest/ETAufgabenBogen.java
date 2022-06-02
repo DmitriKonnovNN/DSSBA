@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 @Getter
 @Builder
-public class EinstufungsTestAufgabenBogen {
+public class ETAufgabenBogen {
 
     @SequenceGenerator(name = "et_aufgabenbogen_seq",
             sequenceName = "et_aufgabenbogen_seq",
@@ -29,7 +29,7 @@ public class EinstufungsTestAufgabenBogen {
             generator = "et_aufgabenbogen_seq")
     private final Long aufgabenBogenId;
     private Integer aufgabenBogenHash;
-    private final List<EinstufungsTestAufgabe> aufgabenListe;
+    private final List<ETAufgabe> aufgabenListe;
 
 
 

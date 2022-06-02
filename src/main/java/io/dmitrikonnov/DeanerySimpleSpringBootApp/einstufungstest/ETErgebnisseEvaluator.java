@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ETErgebnisseEvaluator {
-    public void evaluate(ETErgebnisse ergebnisse) {
+    public void evaluate(ETErgebnisseDto ergebnisse) {
         List<String> sortedList = ergebnisse.getRichtigeLoesungenNachNiveau()
                 .stream()
                 .sorted()

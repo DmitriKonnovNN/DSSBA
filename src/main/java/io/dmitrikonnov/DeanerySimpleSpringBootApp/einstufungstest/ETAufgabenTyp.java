@@ -1,5 +1,5 @@
 package io.dmitrikonnov.DeanerySimpleSpringBootApp.einstufungstest;
 
-public enum EinstufungsTestAufgabenTyp {
+public enum ETAufgabenTyp {
     LESEN, HOEREN, SPRACHBAUSTEINE,SEHEN,SPRECHEN,SCHREIBEN,SPRACHMITTLUNG,FACHBEZOGEN
 }

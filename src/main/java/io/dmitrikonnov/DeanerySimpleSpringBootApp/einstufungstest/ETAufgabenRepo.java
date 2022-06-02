@@ -5,8 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Set;
 
 
-public interface ETAufgabenRepo extends CrudRepository<EinstufungsTestAufgabe, Long> {
+public interface ETAufgabenRepo extends CrudRepository<ETAufgabe, Long> {
 
-    Set<EinstufungsTestAufgabe>findAllByAufgabenNiveau(String niveau);
+    Set<ETAufgabe>findAllByAufgabenNiveau(String niveau);
 
 }
